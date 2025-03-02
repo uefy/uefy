@@ -48,14 +48,17 @@
             font-size: 3em;
             margin-bottom: 20px;
             font-weight: bold;
-            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* Gölge efekti eklendi */
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7); /* Gölge efekti */
         }
 
         /* Linklerin düzeni */
         .links {
-            display: flex; 
+            display: flex;
             justify-content: center;
-            gap: 20px; /* Butonlar arasına boşluk ekledik */
+            align-items: center;
+            gap: 30px; /* Butonlar arasına boşluk ekledik */
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
 
         .links a {
@@ -71,11 +74,17 @@
             width: 50px; /* Butonların genişliği küçültüldü */
             height: 50px; /* Butonların yüksekliği küçültüldü */
             font-size: 1.5em; /* Logoların boyutu küçültüldü */
+            opacity: 1;
         }
 
+        /* Hover efekti ile logoların büyümesi ve diğerlerinin opaklığının azalması */
         .links a:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-            transform: scale(1.1); /* Hover efektini büyütüyoruz */
+            transform: scale(1.4); /* Üzerine gelince logo daha da büyüsün */
+            opacity: 1; /* Üzerinde olduğumuz logo tamamen görünür olacak */
+        }
+
+        .links a:not(:hover) {
+            opacity: 0.6; /* Diğer logoların opaklığı azalsın */
         }
 
         .links a i {
