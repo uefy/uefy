@@ -13,23 +13,23 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Arka plan fotoğrafı */
+        /* Arka plan fotoğrafı + gradient overlay */
         .background-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.imgur.com/BGSUZGN.jpeg'); /* Fotoğraf linki */
+            background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.7) 45%, rgba(0, 0, 0, 1) 100%), url('https://i.imgur.com/BGSUZGN.jpeg');
             background-size: cover;
             background-position: center;
             z-index: -1;
-            filter: brightness(50%); /* Arka planı daha karanlık yaparak butonları daha belirgin hale getiriyoruz */
         }
 
         /* Flexbox ile merkezleme */
         .content {
             display: flex;
+            flex-direction: column; /* Yatayda değil, dikeyde sıralama yapalım */
             justify-content: center;  /* Yatayda merkezler */
             align-items: center;      /* Dikeyde merkezler */
             position: absolute;
@@ -44,7 +44,9 @@
         }
 
         h1 {
-            display: none;  /* Yazıyı kaldırdık */
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
 
         /* Linklerin düzeni */
@@ -87,6 +89,9 @@
 
     <!-- İçerik kutusu -->
     <div class="content">
+        <!-- 'uefy' yazısını ekledik -->
+        <h1>uefy</h1>
+
         <div class="links">
             <!-- Steam Butonu -->
             <a href="https://steamcommunity.com/id/uefy" target="_blank">
