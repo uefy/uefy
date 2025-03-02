@@ -208,6 +208,7 @@
 
     <script>
         let isMuted = false; // Başlangıçta müzik açık
+        let previousVolume = 1; // Sesin önceki seviyesini tutacak
 
         function showContent() {
             // Sayfa giriş ekranını yavaşça kaybolur
@@ -237,14 +238,18 @@
         // Ses kısma işlevi
         function toggleMute() {
             var music = document.getElementById('background-music');
-            isMuted = !isMuted;
-
+            
             if (isMuted) {
-                music.volume = 0; // Ses sıfırlanır
-                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute simgesi
+                // Ses açılır
+                music.volume = previousVolume;
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Sesi aç simgesi
+                isMuted = false;
             } else {
-                music.volume = 1; // Ses açılır
-                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Ses açma simgesi
+                // Ses kapalı
+                previousVolume = music.volume; // Mevcut ses seviyesini kaydediyoruz
+                music.volume = 0; // Sesi sıfırlıyoruz
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute simgesi
+                isMuted = true;
             }
         }
 
