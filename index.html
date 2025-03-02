@@ -25,9 +25,31 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 2em;
+            font-size: 3em;
             cursor: pointer;
-            z-index: 9999; /* Ekranı kaplaması için yüksek z-index */
+            z-index: 9999;
+            font-family: 'Poppins', sans-serif;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* Fade-out animasyonu */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
         /* Fotoğraf arka planı */
@@ -155,12 +177,19 @@
         </div>
     </div>
 
+    <!-- Şarkı oynatıcı -->
+    <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
+
     <script>
         function showContent() {
-            // Sayfa giriş ekranını kaldırır
-            document.getElementById('overlay').style.display = 'none';
+            // Sayfa giriş ekranını yavaşça kaybolur
+            document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
+            
             // İçeriği gösterir
             document.querySelector('.content').style.display = 'flex';
+            
+            // Müzik çalmaya başlar
+            document.getElementById('background-music').play();
         }
 
         const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
