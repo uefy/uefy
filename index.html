@@ -143,7 +143,7 @@
             transition: all 0.3s ease;
         }
 
-        /* Ses kısma butonu */
+        /* Ses Kısma Butonu */
         #mute-btn {
             position: absolute;
             top: 20px;
@@ -263,43 +263,34 @@
             document.querySelector('.content').style.display = 'flex';
             
             // Müzik çalmaya başlar
-            music.volume = 0; // Başlangıçta ses sıfır
+            music.volume = 0; // Başlangıçta ses 0
             music.play();
+            fadeInVolume();
+        }
 
-            // Yavaşça sesi açan fonksiyon
-            var volumeIncreaseInterval = setInterval(function() {
-                if (music.volume < 1) {
-                    music.volume += 0.01; // Sesin yavaşça artması
+        // Müzik sesini yavaşça arttır
+        function fadeInVolume() {
+            let volume = 0;
+            let interval = setInterval(function() {
+                if (volume < 0.5) { // Maksimum ses seviyesi
+                    volume += 0.05;
+                    music.volume = volume;
                 } else {
-                    clearInterval(volumeIncreaseInterval); // Ses maksimuma ulaştığında işlemi durdur
+                    clearInterval(interval);
                 }
-            }, 100); // Her 100 milisaniyede bir ses arttırılır
+            }, 100); // Sesin artışı her 100ms'de 0.05
         }
 
+        // Ses kontrol çubuğunu göster
         function toggleVolumeBar() {
-            if (isVolumeBarVisible) {
-                volumeBar.style.display = 'none'; // Eğer zaten görünüyorsa gizle
-            } else {
-                volumeBar.style.display = 'block'; // Eğer gizli ise göster
-            }
-            isVolumeBarVisible = !isVolumeBarVisible; // Durumu değiştir
+            isVolumeBarVisible = !isVolumeBarVisible;
+            volumeBar.style.display = isVolumeBarVisible ? 'block' : 'none';
         }
 
+        // Ses kontrol barı ile ses ayarını yap
         function adjustVolume(value) {
-            music.volume = value; // Ses seviyesi slider'a göre ayarlanır
+            music.volume = value;
         }
-
-        // Fare butonun üzerine geldiğinde ses kontrol barını göster
-        document.getElementById('mute-btn').addEventListener('mouseenter', function() {
-            volumeBar.style.display = 'block';
-        });
-
-        // Fare butonun dışına çıktığında ses kontrol barını gizle
-        document.getElementById('mute-btn').addEventListener('mouseleave', function() {
-            if (!isVolumeBarVisible) {
-                volumeBar.style.display = 'none';
-            }
-        });
     </script>
 
 </body>
