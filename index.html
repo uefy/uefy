@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>uefy</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
     <style>
         body, html {
             margin: 0;
@@ -46,10 +47,10 @@
         h1 {
             font-size: 3.5em;
             font-weight: bold;
-            text-transform: uppercase; /* Başlığı daha dikkat çekici yapmak için büyük harf kullanıyoruz */
+            text-transform: uppercase;
             margin-bottom: 30px;
-            letter-spacing: 3px; /* Harfler arası boşluk */
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Başlık etrafında hafif bir gölge */
+            letter-spacing: 3px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
         }
 
         /* Butonların düzeni */
@@ -57,28 +58,26 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.6); /* Butonlara hafif bir şeffaflık ekliyoruz */
+            background-color: rgba(0, 0, 0, 0.6);
             color: white;
             text-decoration: none;
             padding: 15px 25px;
             margin: 10px 0;
             border-radius: 10px;
             transition: all 0.3s ease;
-            width: 250px; /* Butonların genişliğini sabitliyoruz */
-            font-size: 1.2em; /* Buton metin boyutunu biraz büyütüyoruz */
+            width: 250px;
+            font-size: 1.2em;
         }
 
-        /* Butonlara hover efekti */
         .links a:hover {
-            background-color: rgba(255, 255, 255, 0.1); /* Butonların hover rengini değiştiriyoruz */
-            transform: scale(1.05); /* Hover etkisiyle butonun biraz büyümesini sağlıyoruz */
+            background-color: rgba(255, 255, 255, 0.1);
+            transform: scale(1.05);
         }
 
-        /* Logo ve yazı düzeni */
-        .links a img {
-            width: 25px; /* Logo boyutunu küçültüyoruz */
+        .links a i {
+            font-size: 25px; /* Logoların boyutunu ayarlıyoruz */
             margin-right: 15px; /* Logo ile yazı arasına boşluk ekliyoruz */
-            filter: grayscale(100%); /* Logoyu siyah-beyaz yapıyoruz */
+            color: white; /* Siyah-beyaz logo efektini sağlıyoruz */
         }
 
     </style>
@@ -94,22 +93,22 @@
         <div class="links">
             <!-- Steam Butonu -->
             <a href="https://steamcommunity.com/id/uefy" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Steam_icon_logo.svg" alt="Steam Logo">
+                <i class="fab fa-steam"></i>
                 Steam
             </a>
             <!-- Instagram Butonu -->
             <a href="https://instagram.com/uefyy" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+                <i class="fab fa-instagram"></i>
                 Instagram
             </a>
             <!-- YouTube Butonu -->
             <a href="https://youtube.com/uefyy" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+                <i class="fab fa-youtube"></i>
                 YouTube
             </a>
             <!-- Discord Butonu -->
             <a href="https://discord.gg/teazstore" target="_blank">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Discord_logo_2023.png" alt="Discord Logo">
+                <i class="fab fa-discord"></i>
                 Discord
             </a>
         </div>
