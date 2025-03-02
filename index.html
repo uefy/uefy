@@ -142,6 +142,27 @@
             opacity: 0.5;
             transition: all 0.3s ease;
         }
+
+        /* Ses kısma butonu */
+        #mute-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1.5em;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover efekti */
+        #mute-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -180,7 +201,14 @@
     <!-- Şarkı oynatıcı -->
     <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
 
+    <!-- Ses Kısma Butonu -->
+    <div id="mute-btn" onclick="toggleMute()">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
     <script>
+        let isMuted = false; // Başlangıçta müzik açık
+
         function showContent() {
             // Sayfa giriş ekranını yavaşça kaybolur
             document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
@@ -201,6 +229,20 @@
                     clearInterval(volumeIncreaseInterval); // Ses maksimuma ulaştığında işlemi durdur
                 }
             }, 100); // Her 100 milisaniyede bir ses arttırılır
+        }
+
+        // Ses kısma işlevi
+        function toggleMute() {
+            var music = document.getElementById('background-music');
+            isMuted = !isMuted;
+
+            if (isMuted) {
+                music.volume = 0; // Ses sıfırlanır
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute simgesi
+            } else {
+                music.volume = 1; // Ses açılır
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Ses açma simgesi
+            }
         }
 
         const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
