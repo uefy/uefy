@@ -33,6 +33,25 @@
             animation: fadeIn 1s ease-out;
         }
 
+        /* Fade-out animasyonu */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
         /* Fotoğraf arka planı */
         .background-image {
             position: absolute;
@@ -124,6 +143,26 @@
             transition: all 0.3s ease;
         }
 
+        /* Ses kısma butonu */
+        #mute-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1.5em;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover efekti */
+        #mute-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -162,23 +201,73 @@
     <!-- Şarkı oynatıcı -->
     <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
 
+    <!-- Ses Kısma Butonu -->
+    <div id="mute-btn" onclick="toggleMute()">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
     <script>
-        let music = document.getElementById('background-music');
-        
+        let isMuted = false; // Başlangıçta müzik açık
+
         function showContent() {
             // Sayfa giriş ekranını yavaşça kaybolur
             document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
             
             // Sayfa giriş efektinin kalkması için sayfa kliklendikten sonra bu öğe tamamen yok edilir
-            document.getElementById('overlay').style.pointerEvents = 'none';  // Tıklanamaz hale getirir.
+            document.getElementById('overlay').style.pointerEvents = 'none';  // Tıklanabilirliği devre dışı bırak
             
             // İçeriği gösterir
             document.querySelector('.content').style.display = 'flex';
             
-            // Şarkı çalmaya başlar ve sesi 0.5 olarak ayarlar
-            music.volume = 0.5;
+            // Müzik çalmaya başlar
+            var music = document.getElementById('background-music');
+            music.volume = 0; // Başlangıçta ses sıfır
             music.play();
+
+            // Yavaşça sesi açan fonksiyon
+            var volumeIncreaseInterval = setInterval(function() {
+                if (music.volume < 1) {
+                    music.volume += 0.01; // Sesin yavaşça artması
+                } else {
+                    clearInterval(volumeIncreaseInterval); // Ses maksimuma ulaştığında işlemi durdur
+                }
+            }, 100); // Her 100 milisaniyede bir ses arttırılır
         }
+
+        // Ses kısma işlevi
+        function toggleMute() {
+            var music = document.getElementById('background-music');
+            isMuted = !isMuted;
+
+            if (isMuted) {
+                music.volume = 0; // Ses sıfırlanır
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute simgesi
+            } else {
+                music.volume = 1; // Ses açılır
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Ses açma simgesi
+            }
+        }
+
+        const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
+
+        links.forEach(link => {
+            link.addEventListener('mouseover', () => {
+                // Fare bir logonun üzerine geldiğinde
+                links.forEach(otherLink => {
+                    if (otherLink !== link) {
+                        otherLink.classList.add('blurred'); // Diğer logoları bulanıklaştır
+                    }
+                });
+            });
+
+            link.addEventListener('mouseleave', () => {
+                // Fare logonun dışına çıktığında
+                links.forEach(otherLink => {
+                    otherLink.classList.remove('blurred'); // Tüm bulanıklıkları kaldır
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
