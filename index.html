@@ -33,25 +33,6 @@
             animation: fadeIn 1s ease-out;
         }
 
-        /* Fade-out animasyonu */
-        @keyframes fadeOut {
-            0% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0;
-            }
-        }
-
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-            }
-            100% {
-                opacity: 1;
-            }
-        }
-
         /* Fotoğraf arka planı */
         .background-image {
             position: absolute;
@@ -164,46 +145,6 @@
             transform: scale(1.2);
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
         }
-
-        /* Yeni Ses Barı Tasarımı */
-        #volume-bar {
-            position: absolute;
-            top: 60px; /* Ses logosunu biraz daha aşağıya aldım */
-            left: 60px;
-            width: 150px;
-            height: 8px;
-            background-color: #444;
-            border-radius: 5px;
-            display: none; /* Başlangıçta gizli */
-            transition: all 0.3s ease;
-        }
-
-        #volume-bar input {
-            width: 100%;
-            height: 100%;
-            background-color: transparent;
-            -webkit-appearance: none;
-            appearance: none;
-            border-radius: 5px;
-            outline: none;
-            cursor: pointer;
-        }
-
-        #volume-bar input::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 20px;
-            height: 20px;
-            background-color: #fff;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        #volume-bar input::-webkit-slider-runnable-track {
-            height: 8px;
-            background-color: #aaa;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
@@ -243,20 +184,13 @@
     <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
 
     <!-- Ses Kısma Butonu -->
-    <div id="mute-btn" onclick="toggleVolumeBar()">
+    <div id="mute-btn" onclick="toggleMusic()">
         <i class="fas fa-volume-up"></i>
-    </div>
-
-    <!-- Ses kontrol barı -->
-    <div id="volume-bar">
-        <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume-control" oninput="adjustVolume(this.value)">
     </div>
 
     <script>
         let music = document.getElementById('background-music');
-        let volumeControl = document.getElementById('volume-control');
-        let volumeBar = document.getElementById('volume-bar');
-        let isVolumeBarVisible = false;
+        let isMuted = false; // Müzik başlangıçta açık
 
         function showContent() {
             // Sayfa giriş ekranını yavaşça kaybolur
@@ -272,14 +206,17 @@
             music.play();
         }
 
-        function toggleVolumeBar() {
-            // Ses barının görünürlüğünü değiştirir
-            isVolumeBarVisible = !isVolumeBarVisible;
-            volumeBar.style.display = isVolumeBarVisible ? 'block' : 'none';
-        }
-
-        function adjustVolume(value) {
-            music.volume = value; // Müzik ses seviyesini ayarlar
+        function toggleMusic() {
+            if (isMuted) {
+                // Müzik açılır
+                music.play();
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                // Müzik durdurulur
+                music.pause();
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+            isMuted = !isMuted; // Durum değişir
         }
 
     </script>
