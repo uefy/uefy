@@ -13,25 +13,36 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Arka plan fotoğrafı + gradient overlay */
+        /* Arka plan fotoğrafı + hareketli gradient overlay */
         .background-image {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%), url('https://i.imgur.com/BGSUZGN.jpeg');
+            background-image: url('https://i.imgur.com/BGSUZGN.jpeg');
             background-size: cover;
             background-position: center;
             z-index: -1;
+            animation: gradientAnimation 10s infinite alternate; /* Animasyon ekledik */
+        }
+
+        /* Gradient animasyonu */
+        @keyframes gradientAnimation {
+            0% {
+                background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.5) 0%, rgba(0, 0, 0, 0.7) 100%);
+            }
+            100% {
+                background-image: linear-gradient(45deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.5) 100%);
+            }
         }
 
         /* Flexbox ile merkezleme */
         .content {
             display: flex;
-            flex-direction: column; /* Yatayda değil, dikeyde sıralama yapalım */
-            justify-content: center;  /* Yatayda merkezler */
-            align-items: center;      /* Dikeyde merkezler */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             position: absolute;
             top: 0;
             left: 0;
@@ -51,24 +62,24 @@
 
         /* Linklerin düzeni */
         .links {
-            display: flex;  /* Butonları yatayda sıralamak için flexbox */
+            display: flex; 
             justify-content: center;
-            gap: 15px; /* Butonlar arasına daha az boşluk ekleyelim */
+            gap: 20px; /* Butonlar arasına boşluk ekledik */
         }
 
         .links a {
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.6); /* Buton arka planını biraz daha şeffaf yapalım */
+            background-color: rgba(0, 0, 0, 0.6); /* Arka plan şeffaf */
             color: white;
             text-decoration: none;
-            padding: 12px;  /* Gri alanın boyutunu küçültüyoruz */
+            padding: 8px;  /* Gri alan küçültüldü */
             border-radius: 50%; /* Yuvarlak butonlar */
             transition: all 0.3s ease;
-            width: 70px; /* Butonların genişliğini ayarlıyoruz */
-            height: 70px; /* Butonların yüksekliğini ayarlıyoruz */
-            font-size: 2em; /* Logoları büyütüyoruz */
+            width: 70px; /* Butonların genişliği */
+            height: 70px; /* Butonların yüksekliği */
+            font-size: 2em; /* Logoların büyüklüğü */
         }
 
         .links a:hover {
