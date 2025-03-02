@@ -1,4 +1,4 @@
-.<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
@@ -19,10 +19,11 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url('https://i.imgur.com/BGSUZGN.jpeg'); /* Doğru fotoğraf linki */
+            background-image: url('https://i.imgur.com/BGSUZGN.jpeg'); /* Fotoğraf linki */
             background-size: cover;
             background-position: center;
             z-index: -1;
+            filter: brightness(50%); /* Arka planı daha karanlık yaparak butonları daha belirgin hale getiriyoruz */
         }
 
         /* Flexbox ile merkezleme */
@@ -43,26 +44,43 @@
         }
 
         h1 {
-            font-size: 3em;
-            margin-bottom: 20px;
+            font-size: 3.5em;
+            font-weight: bold;
+            text-transform: uppercase; /* Başlığı daha dikkat çekici yapmak için büyük harf kullanıyoruz */
+            margin-bottom: 30px;
+            letter-spacing: 3px; /* Harfler arası boşluk */
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5); /* Başlık etrafında hafif bir gölge */
         }
 
-        /* Linklerin düzeni */
+        /* Butonların düzeni */
         .links a {
-            display: block;
-            background-color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.6); /* Butonlara hafif bir şeffaflık ekliyoruz */
             color: white;
             text-decoration: none;
-            padding: 15px;
+            padding: 15px 25px;
             margin: 10px 0;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-            width: 200px; /* Butonların genişliğini sabitle */
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            width: 250px; /* Butonların genişliğini sabitliyoruz */
+            font-size: 1.2em; /* Buton metin boyutunu biraz büyütüyoruz */
         }
 
+        /* Butonlara hover efekti */
         .links a:hover {
-            background-color: #444;
+            background-color: rgba(255, 255, 255, 0.1); /* Butonların hover rengini değiştiriyoruz */
+            transform: scale(1.05); /* Hover etkisiyle butonun biraz büyümesini sağlıyoruz */
         }
+
+        /* Logo ve yazı düzeni */
+        .links a img {
+            width: 25px; /* Logo boyutunu küçültüyoruz */
+            margin-right: 15px; /* Logo ile yazı arasına boşluk ekliyoruz */
+            filter: grayscale(100%); /* Logoyu siyah-beyaz yapıyoruz */
+        }
+
     </style>
 </head>
 <body>
@@ -74,10 +92,26 @@
     <div class="content">
         <h1>uefy</h1>
         <div class="links">
-            <a href="https://steamcommunity.com/id/uefy" target="_blank">Steam</a>
-            <a href="https://instagram.com/uefyy" target="_blank">Instagram</a>
-            <a href="https://youtube.com/uefyy" target="_blank">YouTube</a>
-            <a href="https://discord.gg/teazstore" target="_blank">Discord</a>
+            <!-- Steam Butonu -->
+            <a href="https://steamcommunity.com/id/uefy" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a7/Steam_icon_logo.svg" alt="Steam Logo">
+                Steam
+            </a>
+            <!-- Instagram Butonu -->
+            <a href="https://instagram.com/uefyy" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png" alt="Instagram Logo">
+                Instagram
+            </a>
+            <!-- YouTube Butonu -->
+            <a href="https://youtube.com/uefyy" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/4/42/YouTube_icon_%282013-2017%29.png" alt="YouTube Logo">
+                YouTube
+            </a>
+            <!-- Discord Butonu -->
+            <a href="https://discord.gg/teazstore" target="_blank">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Discord_logo_2023.png" alt="Discord Logo">
+                Discord
+            </a>
         </div>
     </div>
 
