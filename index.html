@@ -164,6 +164,40 @@
             transform: scale(1.2);
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
         }
+
+        /* Ses kontrol barı */
+        #volume-bar {
+            position: absolute;
+            top: 25px;
+            left: 80px;
+            width: 100px;
+            height: 5px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 5px;
+            display: none; /* Başlangıçta gizli */
+            transition: all 0.3s ease;
+        }
+
+        #volume-bar input {
+            width: 100%;
+            height: 100%;
+            background-color: transparent;
+            -webkit-appearance: none;
+            appearance: none;
+            border-radius: 5px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        #volume-bar input::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            background-color: #fff;
+            border-radius: 50%;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -203,13 +237,20 @@
     <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
 
     <!-- Ses Kısma Butonu -->
-    <div id="mute-btn" onclick="toggleMute()">
+    <div id="mute-btn" onclick="toggleVolumeBar()">
         <i class="fas fa-volume-up"></i>
     </div>
 
+    <!-- Ses kontrol barı -->
+    <div id="volume-bar">
+        <input type="range" min="0" max="1" step="0.01" value="0.5" id="volume-control" oninput="adjustVolume(this.value)">
+    </div>
+
     <script>
-        let isMuted = false; // Başlangıçta müzik açık
-        let previousVolume = 1; // Sesin önceki seviyesini tutacak
+        let music = document.getElementById('background-music');
+        let volumeControl = document.getElementById('volume-control');
+        let volumeBar = document.getElementById('volume-bar');
+        let isVolumeBarVisible = false;
 
         function showContent() {
             // Sayfa giriş ekranını yavaşça kaybolur
@@ -222,7 +263,6 @@
             document.querySelector('.content').style.display = 'flex';
             
             // Müzik çalmaya başlar
-            var music = document.getElementById('background-music');
             music.volume = 0; // Başlangıçta ses sıfır
             music.play();
 
@@ -236,42 +276,29 @@
             }, 100); // Her 100 milisaniyede bir ses arttırılır
         }
 
-        // Ses kısma işlevi
-        function toggleMute() {
-            var music = document.getElementById('background-music');
-            
-            if (isMuted) {
-                // Ses açılır
-                music.volume = previousVolume; // Müzik önceki ses seviyesine geri döner
-                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Sesi aç simgesi
-                isMuted = false;
+        function toggleVolumeBar() {
+            if (isVolumeBarVisible) {
+                volumeBar.style.display = 'none'; // Eğer zaten görünüyorsa gizle
             } else {
-                // Ses kapalı
-                previousVolume = music.volume; // Mevcut ses seviyesini kaydediyoruz
-                music.volume = 0; // Sesi sıfırlıyoruz
-                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute simgesi
-                isMuted = true;
+                volumeBar.style.display = 'block'; // Eğer gizli ise göster
             }
+            isVolumeBarVisible = !isVolumeBarVisible; // Durumu değiştir
         }
 
-        const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
+        function adjustVolume(value) {
+            music.volume = value; // Ses seviyesi slider'a göre ayarlanır
+        }
 
-        links.forEach(link => {
-            link.addEventListener('mouseover', () => {
-                // Fare bir logonun üzerine geldiğinde
-                links.forEach(otherLink => {
-                    if (otherLink !== link) {
-                        otherLink.classList.add('blurred'); // Diğer logoları bulanıklaştır
-                    }
-                });
-            });
+        // Fare butonun üzerine geldiğinde ses kontrol barını göster
+        document.getElementById('mute-btn').addEventListener('mouseenter', function() {
+            volumeBar.style.display = 'block';
+        });
 
-            link.addEventListener('mouseleave', () => {
-                // Fare logonun dışına çıktığında
-                links.forEach(otherLink => {
-                    otherLink.classList.remove('blurred'); // Tüm bulanıklıkları kaldır
-                });
-            });
+        // Fare butonun dışına çıktığında ses kontrol barını gizle
+        document.getElementById('mute-btn').addEventListener('mouseleave', function() {
+            if (!isVolumeBarVisible) {
+                volumeBar.style.display = 'none';
+            }
         });
     </script>
 
