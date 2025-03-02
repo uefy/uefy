@@ -97,14 +97,28 @@
         }
 
         /* Fareli logonun dışında kalan diğer logoların bulanıklaşsın */
+        /* LOGO 1 (Steam) */
         .links a:hover ~ a {
             filter: blur(4px); /* Fare ile üzerine gelindiğinde diğer logolar bulanıklaşır */
             opacity: 0.7; /* Diğer logoların opaklığını azalt */
         }
 
-        /* Fareli logonun dışında kalan diğer logoların boyutunu etkilenmeyecek şekilde ayarladık */
-        .links a:not(:hover) {
-            opacity: 0.7; /* Diğer logoların opaklığını azalt */
+        /* LOGO 2 (Instagram) */
+        .links a:hover ~ a {
+            filter: blur(4px);
+            opacity: 0.7;
+        }
+
+        /* LOGO 3 (YouTube) */
+        .links a:hover ~ a {
+            filter: blur(4px);
+            opacity: 0.7;
+        }
+
+        /* LOGO 4 (Discord) */
+        .links a:hover ~ a {
+            filter: blur(4px);
+            opacity: 0.7;
         }
     </style>
 </head>
