@@ -124,27 +124,6 @@
             transition: all 0.3s ease;
         }
 
-        /* Ses Kısma Butonu */
-        #mute-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            font-size: 1.5em;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-            transition: all 0.3s ease;
-            z-index: 10000; /* Butonun üstte olmasını sağlıyoruz */
-        }
-
-        /* Hover efekti */
-        #mute-btn:hover {
-            transform: scale(1.2);
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
-        }
     </style>
 </head>
 <body>
@@ -183,15 +162,9 @@
     <!-- Şarkı oynatıcı -->
     <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
 
-    <!-- Ses Kısma Butonu -->
-    <div id="mute-btn" onclick="toggleMusic()">
-        <i class="fas fa-volume-up"></i>
-    </div>
-
     <script>
         let music = document.getElementById('background-music');
-        let isMuted = false; // Müzik başlangıçta açık
-
+        
         function showContent() {
             // Sayfa giriş ekranını yavaşça kaybolur
             document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
@@ -202,23 +175,10 @@
             // İçeriği gösterir
             document.querySelector('.content').style.display = 'flex';
             
-            // Müzik çalmaya başlar
+            // Şarkı çalmaya başlar ve sesi 0.5 olarak ayarlar
+            music.volume = 0.5;
             music.play();
         }
-
-        function toggleMusic() {
-            if (isMuted) {
-                // Müzik açılır
-                music.play();
-                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>';
-            } else {
-                // Müzik durdurulur
-                music.pause();
-                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>';
-            }
-            isMuted = !isMuted; // Durum değişir
-        }
-
     </script>
 </body>
 </html>
