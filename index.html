@@ -13,7 +13,24 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* Arka plan fotoğrafı */
+        /* Sayfa açıldığında siyah ekran */
+        #overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            cursor: pointer;
+            z-index: 9999; /* Ekranı kaplaması için yüksek z-index */
+        }
+
+        /* Fotoğraf arka planı */
         .background-image {
             position: absolute;
             top: 0;
@@ -54,6 +71,7 @@
             color: white;
             padding: 20px;
             z-index: 1;
+            display: none; /* Sayfa ilk açıldığında gizli */
         }
 
         h1 {
@@ -112,6 +130,11 @@
     <!-- Sayfa kararma efekti -->
     <div class="overlay"></div>
 
+    <!-- Sayfa giriş ekranı -->
+    <div id="overlay" onclick="showContent()">
+        Click to Enter
+    </div>
+
     <!-- İçerik kutusu -->
     <div class="content">
         <h1>uefy</h1>
@@ -133,6 +156,13 @@
     </div>
 
     <script>
+        function showContent() {
+            // Sayfa giriş ekranını kaldırır
+            document.getElementById('overlay').style.display = 'none';
+            // İçeriği gösterir
+            document.querySelector('.content').style.display = 'flex';
+        }
+
         const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
 
         links.forEach(link => {
