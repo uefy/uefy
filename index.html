@@ -213,6 +213,9 @@
             // Sayfa giriş ekranını yavaşça kaybolur
             document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
             
+            // Sayfa giriş efektinin kalkması için sayfa kliklendikten sonra bu öğe tamamen yok edilir
+            document.getElementById('overlay').style.pointerEvents = 'none';  // Tıklanabilirliği devre dışı bırak
+            
             // İçeriği gösterir
             document.querySelector('.content').style.display = 'flex';
             
