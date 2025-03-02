@@ -68,7 +68,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 15px; /* Boşlukları biraz daha küçülttük */
+            gap: 15px;
             opacity: 1;
             transition: opacity 0.3s ease;
         }
@@ -90,21 +90,21 @@
             transform: scale(1);
         }
 
+        /* Fare ile üzerine gelince sadece logonun büyümesi */
         .links a:hover {
             transform: scale(1.4); /* Büyütme efekti */
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fare ile üzerine gelince gölge eklendi */
         }
 
-        /* Fare ile logonun üzerine geldiğinde, tüm logoların küçülmesi */
-        .links a:hover {
-            transform: scale(1.4);
-            opacity: 1;
+        /* Fare dışında kalan logolar bulanıklaşsın */
+        .links a:hover ~ a {
+            filter: blur(4px); /* Fare dışında kalan logolar bulanıklaşsın */
         }
 
-        /* Fare dışında kalan logoların küçülmesi */
+        /* Fare dışında kalan logoların boyutunu etkilenmeyecek şekilde ayarladık */
         .links a:not(:hover) {
-            opacity: 0.6;
-            transform: scale(0.8);
+            opacity: 1; /* Fareyle üzerine gelmediğinde diğer logolar aynı kalır */
+            transform: scale(1); /* Boyut sabit kalır */
         }
     </style>
 </head>
