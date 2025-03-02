@@ -30,9 +30,8 @@
         /* Flexbox ile merkezleme */
         .content {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
+            justify-content: center;  /* Yatayda merkezler */
+            align-items: center;      /* Dikeyde merkezler */
             position: absolute;
             top: 0;
             left: 0;
@@ -45,15 +44,16 @@
         }
 
         h1 {
-            font-size: 3.5em;
-            font-weight: bold;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-            letter-spacing: 3px;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            display: none;  /* Yazıyı kaldırdık */
         }
 
-        /* Butonların düzeni */
+        /* Linklerin düzeni */
+        .links {
+            display: flex;  /* Butonları yatayda sıralamak için flexbox */
+            justify-content: center;
+            gap: 20px; /* Butonlar arasına boşluk ekler */
+        }
+
         .links a {
             display: flex;
             justify-content: center;
@@ -61,23 +61,21 @@
             background-color: rgba(0, 0, 0, 0.6);
             color: white;
             text-decoration: none;
-            padding: 12px 20px; /* Butonların içindeki boşluğu daraltıyoruz */
-            margin: 8px 0; /* Butonlar arasındaki mesafeyi kısaltıyoruz */
-            border-radius: 10px;
+            padding: 15px;
+            border-radius: 50%; /* Yuvarlak butonlar */
             transition: all 0.3s ease;
-            width: 180px; /* Butonların genişliğini daha da küçültüyoruz */
-            font-size: 1.1em; /* Yazı boyutunu biraz küçültüyoruz */
+            width: 80px; /* Butonların genişliğini ayarlıyoruz */
+            height: 80px; /* Butonların yüksekliğini ayarlıyoruz */
+            font-size: 2.5em; /* Logoları büyütüyoruz */
         }
 
         .links a:hover {
             background-color: rgba(255, 255, 255, 0.1);
-            transform: scale(1.05);
+            transform: scale(1.1); /* Hover efektini büyütüyoruz */
         }
 
         .links a i {
-            font-size: 24px; /* Logoların boyutunu biraz küçültüyoruz */
-            margin-right: 12px; /* Logo ile yazı arasındaki boşluğu daraltıyoruz */
-            color: white; /* Siyah-beyaz logo efektini sağlıyoruz */
+            color: white;
         }
 
     </style>
@@ -89,27 +87,22 @@
 
     <!-- İçerik kutusu -->
     <div class="content">
-        <h1>uefy</h1>
         <div class="links">
             <!-- Steam Butonu -->
             <a href="https://steamcommunity.com/id/uefy" target="_blank">
                 <i class="fab fa-steam"></i>
-                Steam
             </a>
             <!-- Instagram Butonu -->
             <a href="https://instagram.com/uefyy" target="_blank">
                 <i class="fab fa-instagram"></i>
-                Instagram
             </a>
             <!-- YouTube Butonu -->
             <a href="https://youtube.com/uefyy" target="_blank">
                 <i class="fab fa-youtube"></i>
-                YouTube
             </a>
             <!-- Discord Butonu -->
             <a href="https://discord.gg/teazstore" target="_blank">
                 <i class="fab fa-discord"></i>
-                Discord
             </a>
         </div>
     </div>
