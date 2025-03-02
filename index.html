@@ -27,7 +27,7 @@
             z-index: -1;
         }
 
-        /* Sayfa kararması için overlay ekleyelim */
+        /* Sayfa kararması için overlay */
         .overlay {
             position: absolute;
             top: 0;
@@ -57,7 +57,7 @@
         }
 
         h1 {
-            font-size: 3em;
+            font-size: 4em; /* Yazıyı büyüttük */
             margin-bottom: 20px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
@@ -68,7 +68,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 20px;
+            gap: 15px; /* Boşlukları biraz daha küçülttük */
             opacity: 1;
             transition: opacity 0.3s ease;
         }
@@ -80,61 +80,27 @@
             background-color: rgba(0, 0, 0, 0.9);
             color: white;
             text-decoration: none;
-            padding: 5px;
+            padding: 8px;
             border-radius: 50%;
             transition: all 0.3s ease;
-            width: 70px;
-            height: 70px;
-            font-size: 2.2em;
+            width: 50px; /* Boyut küçültüldü */
+            height: 50px;
+            font-size: 1.8em;
             opacity: 1;
         }
 
         .links a:hover {
             transform: scale(1.4);
-            opacity: 1;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fare ile üzerine gelince gölge eklendi */
         }
 
         .links a:not(:hover) {
             opacity: 0.6;
         }
 
-        /* Sayfa kararmasını aktif hale getirelim */
+        /* Karanlık overlay efekti */
         .links a:hover ~ .overlay {
             opacity: 0.7;
-        }
-
-        /* Kayan Yazılar (Yukarıdan Aşağıya) */
-        .scrolling-text-left,
-        .scrolling-text-right {
-            position: absolute;
-            font-size: 1.5em;
-            color: black;
-            white-space: nowrap;
-            animation: scrollTextVertical 10s linear infinite;
-            font-weight: bold;
-            z-index: 2;
-        }
-
-        .scrolling-text-left {
-            top: 0;
-            left: 0;
-            transform: translateX(-100%);
-        }
-
-        .scrolling-text-right {
-            top: 0;
-            right: 0;
-            transform: translateX(100%);
-        }
-
-        /* Animasyon - Yazı Yukarıdan Aşağıya Kayacak */
-        @keyframes scrollTextVertical {
-            0% {
-                top: -100%;
-            }
-            100% {
-                top: 100%;
-            }
         }
 
     </style>
@@ -147,14 +113,6 @@
     <!-- Sayfa kararma efekti -->
     <div class="overlay"></div>
 
-    <!-- Kayan yazılar (Sol ve Sağda) -->
-    <div class="scrolling-text-left">
-        discord.gg/teazstore
-    </div>
-    <div class="scrolling-text-right">
-        discord.gg/teazstore
-    </div>
-
     <!-- İçerik kutusu -->
     <div class="content">
         <h1>uefy</h1>
@@ -163,10 +121,10 @@
             <a href="https://steamcommunity.com/id/uefy" target="_blank">
                 <i class="fab fa-steam"></i>
             </a>
-            <a href="https://instagram.com/uefyy" target="_blank">
+            <a href="https://instagram.com/uefyyy" target="_blank">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://youtube.com/uefyy" target="_blank">
+            <a href="https://youtube.com/@uefyy" target="_blank">
                 <i class="fab fa-youtube"></i>
             </a>
             <a href="https://discord.gg/teazstore" target="_blank">
