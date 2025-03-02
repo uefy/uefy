@@ -168,10 +168,10 @@
         /* Yeni Ses Barı Tasarımı */
         #volume-bar {
             position: absolute;
-            top: 25px;
-            left: 80px;
+            top: 60px; /* Ses logosunu biraz daha aşağıya aldım */
+            left: 60px;
             width: 150px;
-            height: 10px;
+            height: 8px;
             background-color: #444;
             border-radius: 5px;
             display: none; /* Başlangıçta gizli */
@@ -200,7 +200,7 @@
         }
 
         #volume-bar input::-webkit-slider-runnable-track {
-            height: 10px;
+            height: 8px;
             background-color: #aaa;
             border-radius: 5px;
         }
@@ -263,41 +263,25 @@
             document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
             
             // Sayfa giriş efektinin kalkması için sayfa kliklendikten sonra bu öğe tamamen yok edilir
-            document.getElementById('overlay').style.pointerEvents = 'none';  // Tıklanabilirliği devre dışı bırak
+            document.getElementById('overlay').style.pointerEvents = 'none';  // Tıklanamaz hale getirir.
             
             // İçeriği gösterir
             document.querySelector('.content').style.display = 'flex';
             
             // Müzik çalmaya başlar
-            music.volume = 0; // Başlangıçta ses 0
             music.play();
-            fadeInVolume();
         }
 
-        // Müzik sesini yavaşça arttır
-        function fadeInVolume() {
-            let volume = 0;
-            let interval = setInterval(function() {
-                if (volume < 0.5) { // Maksimum ses seviyesi
-                    volume += 0.05;
-                    music.volume = volume;
-                } else {
-                    clearInterval(interval);
-                }
-            }, 100); // Sesin artışı her 100ms'de 0.05
-        }
-
-        // Ses kontrol çubuğunu göster
         function toggleVolumeBar() {
+            // Ses barının görünürlüğünü değiştirir
             isVolumeBarVisible = !isVolumeBarVisible;
             volumeBar.style.display = isVolumeBarVisible ? 'block' : 'none';
         }
 
-        // Ses kontrol barı ile ses ayarını yap
         function adjustVolume(value) {
-            music.volume = value;
+            music.volume = value; // Müzik ses seviyesini ayarlar
         }
-    </script>
 
+    </script>
 </body>
 </html>
