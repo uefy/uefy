@@ -57,7 +57,7 @@
         }
 
         h1 {
-            font-size: 4em; /* Yazıyı büyüttük */
+            font-size: 4em;
             margin-bottom: 20px;
             font-weight: bold;
             text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
@@ -83,7 +83,7 @@
             padding: 8px;
             border-radius: 50%;
             transition: all 0.3s ease;
-            width: 50px; /* Boyut küçültüldü */
+            width: 50px;
             height: 50px;
             font-size: 1.8em;
             opacity: 1;
@@ -93,32 +93,14 @@
         /* Fare ile üzerine gelince sadece logonun büyümesi */
         .links a:hover {
             transform: scale(1.4); /* Büyütme efekti */
-            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fare ile üzerine gelince gölge eklendi */
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
         }
 
-        /* Fareli logonun dışında kalan diğer logoların bulanıklaşsın */
-        /* LOGO 1 (Steam) */
-        .links a:hover ~ a {
-            filter: blur(4px); /* Fare ile üzerine gelindiğinde diğer logolar bulanıklaşır */
-            opacity: 0.7; /* Diğer logoların opaklığını azalt */
-        }
-
-        /* LOGO 2 (Instagram) */
-        .links a:hover ~ a {
+        /* Opaklık ve bulanıklaştırma efektleri JavaScript ile */
+        .blurred {
             filter: blur(4px);
-            opacity: 0.7;
-        }
-
-        /* LOGO 3 (YouTube) */
-        .links a:hover ~ a {
-            filter: blur(4px);
-            opacity: 0.7;
-        }
-
-        /* LOGO 4 (Discord) */
-        .links a:hover ~ a {
-            filter: blur(4px);
-            opacity: 0.7;
+            opacity: 0.5;
+            transition: all 0.3s ease;
         }
     </style>
 </head>
@@ -135,20 +117,42 @@
         <h1>uefy</h1>
 
         <div class="links">
-            <a href="https://steamcommunity.com/id/uefy" target="_blank">
+            <a href="https://steamcommunity.com/id/uefy" target="_blank" id="steam">
                 <i class="fab fa-steam"></i>
             </a>
-            <a href="https://instagram.com/uefyyy" target="_blank">
+            <a href="https://instagram.com/uefyyy" target="_blank" id="instagram">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://youtube.com/@uefyy" target="_blank">
+            <a href="https://youtube.com/@uefyy" target="_blank" id="youtube">
                 <i class="fab fa-youtube"></i>
             </a>
-            <a href="https://discord.gg/teazstore" target="_blank">
+            <a href="https://discord.gg/teazstore" target="_blank" id="discord">
                 <i class="fab fa-discord"></i>
             </a>
         </div>
     </div>
+
+    <script>
+        const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
+
+        links.forEach(link => {
+            link.addEventListener('mouseover', () => {
+                // Fare bir logonun üzerine geldiğinde
+                links.forEach(otherLink => {
+                    if (otherLink !== link) {
+                        otherLink.classList.add('blurred'); // Diğer logoları bulanıklaştır
+                    }
+                });
+            });
+
+            link.addEventListener('mouseleave', () => {
+                // Fare logonun dışına çıktığında
+                links.forEach(otherLink => {
+                    otherLink.classList.remove('blurred'); // Tüm bulanıklıkları kaldır
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
