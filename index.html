@@ -33,6 +33,25 @@
             animation: fadeIn 1s ease-out;
         }
 
+        /* Fade-out animasyonu */
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
         /* Fotoğraf arka planı */
         .background-image {
             position: absolute;
@@ -59,7 +78,7 @@
             transition: opacity 0.3s ease;
         }
 
-        /* İçerik kutusu */
+        /* Flexbox ile merkezleme */
         .content {
             display: flex;
             flex-direction: column;
@@ -77,36 +96,21 @@
             display: none; /* Sayfa ilk açıldığında gizli */
         }
 
-        /* Gölge ve çerçeve arka plan efekti */
-        .shadow-box {
-            position: absolute;
-            width: 300px;
-            height: 120px;
-            background-color: rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            z-index: 0;
-        }
-
-        /* "uefy" yazısı */
         h1 {
             font-size: 4em;
             margin-bottom: 20px;
             font-weight: bold;
-            position: relative;
-            z-index: 2;
+            text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.7);
         }
 
-        /* Logoların etrafına gölge ve çerçeve efekti */
+        /* Linklerin düzeni */
         .links {
-            position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 15px;
-            margin-top: 10px;
-            z-index: 2;
+            opacity: 1;
+            transition: opacity 0.3s ease;
         }
 
         .links a {
@@ -122,26 +126,43 @@
             width: 50px;
             height: 50px;
             font-size: 1.8em;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            z-index: 2;
+            opacity: 1;
+            transform: scale(1);
         }
 
-        /* Gölge efekti yerleştirme */
-        .shadow-box#uefy-shadow {
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -65%);
+        /* Fare ile üzerine gelince sadece logonun büyümesi */
+        .links a:hover {
+            transform: scale(1.4);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
         }
 
-        .shadow-box#links-shadow {
-            top: 70%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 350px;
-            height: 80px;
+        /* Opaklık ve bulanıklaştırma efektleri JavaScript ile */
+        .blurred {
+            filter: blur(4px);
+            opacity: 0.5;
+            transition: all 0.3s ease;
         }
 
+        /* Ses kısma butonu */
+        #mute-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            font-size: 1.5em;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        /* Hover efekti */
+        #mute-btn:hover {
+            transform: scale(1.2);
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -149,13 +170,12 @@
     <div class="background-image"></div>
     <div class="overlay"></div>
 
-    <div id="overlay" onclick="showContent()">Click to Enter</div>
+    <div id="overlay" onclick="showContent()">
+        Click to Enter
+    </div>
 
     <div class="content">
-        <div class="shadow-box" id="uefy-shadow"></div>
         <h1>uefy</h1>
-
-        <div class="shadow-box" id="links-shadow"></div>
         <div class="links">
             <a href="https://steamcommunity.com/id/uefy" target="_blank"><i class="fab fa-steam"></i></a>
             <a href="https://instagram.com/uefyyy" target="_blank"><i class="fab fa-instagram"></i></a>
@@ -166,14 +186,48 @@
 
     <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio>
 
+    <div id="mute-btn" onclick="toggleMute()">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
     <script>
+        let isMuted = false;
+
         function showContent() {
-            document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
-            document.getElementById('overlay').style.pointerEvents = 'none';
+            var overlay = document.getElementById('overlay');
+            overlay.style.animation = 'fadeOut 2s forwards';
+
+            // 2 saniye sonra tamamen kaldır
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 2000);
+
             document.querySelector('.content').style.display = 'flex';
-            
+
             var music = document.getElementById('background-music');
+            music.volume = 0;
             music.play();
+
+            var volumeIncreaseInterval = setInterval(function() {
+                if (music.volume < 1) {
+                    music.volume += 0.01;
+                } else {
+                    clearInterval(volumeIncreaseInterval);
+                }
+            }, 100);
+        }
+
+        function toggleMute() {
+            var music = document.getElementById('background-music');
+            isMuted = !isMuted;
+
+            if (isMuted) {
+                music.volume = 0;
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                music.volume = 1;
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>';
+            }
         }
     </script>
 
