@@ -93,7 +93,7 @@
             color: white;
             padding: 20px;
             z-index: 1;
-            display: none;
+            display: none; /* Sayfa ilk açıldığında gizli */
         }
 
         h1 {
@@ -130,17 +130,20 @@
             transform: scale(1);
         }
 
+        /* Fare ile üzerine gelince sadece logonun büyümesi */
         .links a:hover {
-            transform: scale(1.4);
+            transform: scale(1.4); /* Büyütme efekti */
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
         }
 
+        /* Opaklık ve bulanıklaştırma efektleri JavaScript ile */
         .blurred {
             filter: blur(4px);
             opacity: 0.5;
             transition: all 0.3s ease;
         }
 
+        /* Ses kısma butonu */
         #mute-btn {
             position: absolute;
             top: 20px;
@@ -155,6 +158,7 @@
             transition: all 0.3s ease;
         }
 
+        /* Hover efekti */
         #mute-btn:hover {
             transform: scale(1.2);
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.8);
@@ -162,38 +166,108 @@
     </style>
 </head>
 <body>
+
+    <!-- Fotoğraf arka planı -->
     <div class="background-image"></div>
+
+    <!-- Sayfa kararma efekti -->
     <div class="overlay"></div>
-    <div id="overlay" onclick="showContent()">Click to Enter</div>
+
+    <!-- Sayfa giriş ekranı -->
+    <div id="overlay" onclick="showContent()">
+        Click to Enter
+    </div>
+
+    <!-- İçerik kutusu -->
     <div class="content">
         <h1>uefy</h1>
+
         <div class="links">
-            <a href="https://steamcommunity.com/id/uefy" target="_blank"><i class="fab fa-steam"></i></a>
-            <a href="https://instagram.com/uefyyy" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://youtube.com/@uefyy" target="_blank"><i class="fab fa-youtube"></i></a>
-            <a href="https://discord.gg/teazstore" target="_blank"><i class="fab fa-discord"></i></a>
+            <a href="https://steamcommunity.com/id/uefy" target="_blank" id="steam">
+                <i class="fab fa-steam"></i>
+            </a>
+            <a href="https://instagram.com/uefyyy" target="_blank" id="instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://youtube.com/@uefyy" target="_blank" id="youtube">
+                <i class="fab fa-youtube"></i>
+            </a>
+            <a href="https://discord.gg/teazstore" target="_blank" id="discord">
+                <i class="fab fa-discord"></i>
+            </a>
         </div>
     </div>
-    <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio>
-    <div id="mute-btn" onclick="toggleMute()"><i class="fas fa-volume-up"></i></div>
+
+    <!-- Şarkı oynatıcı -->
+    <audio id="background-music" src="https://raw.githubusercontent.com/uefy/uefy/main/youtube_vtxDtxCfKew_audio.mp3" preload="auto"></audio> <!-- GitHub üzerindeki ses dosyasının linki -->
+
+    <!-- Ses Kısma Butonu -->
+    <div id="mute-btn" onclick="toggleMute()">
+        <i class="fas fa-volume-up"></i>
+    </div>
+
     <script>
-        let isMuted = false;
-        const music = document.getElementById('background-music');
-        const muteBtn = document.getElementById('mute-btn');
+        let isMuted = false; // Başlangıçta müzik açık
 
         function showContent() {
+            // Sayfa giriş ekranını yavaşça kaybolur
             document.getElementById('overlay').style.animation = 'fadeOut 1s forwards';
-            document.getElementById('overlay').style.pointerEvents = 'none';
+            
+            // Sayfa giriş efektinin kalkması için sayfa kliklendikten sonra bu öğe tamamen yok edilir
+            document.getElementById('overlay').style.pointerEvents = 'none';  // Tıklanabilirliği devre dışı bırak
+            
+            // İçeriği gösterir
             document.querySelector('.content').style.display = 'flex';
-            music.volume = 1;
+            
+            // Müzik çalmaya başlar
+            var music = document.getElementById('background-music');
+            music.volume = 0; // Başlangıçta ses sıfır
             music.play();
+
+            // Yavaşça sesi açan fonksiyon
+            var volumeIncreaseInterval = setInterval(function() {
+                if (music.volume < 1) {
+                    music.volume += 0.01; // Sesin yavaşça artması
+                } else {
+                    clearInterval(volumeIncreaseInterval); // Ses maksimuma ulaştığında işlemi durdur
+                }
+            }, 100); // Her 100 milisaniyede bir ses arttırılır
         }
 
+        // Ses kısma işlevi
         function toggleMute() {
+            var music = document.getElementById('background-music');
             isMuted = !isMuted;
-            music.volume = isMuted ? 0 : 1;
-            muteBtn.innerHTML = isMuted ? '<i class="fas fa-volume-mute"></i>' : '<i class="fas fa-volume-up"></i>';
+
+            if (isMuted) {
+                music.volume = 0; // Ses sıfırlanır
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-mute"></i>'; // Mute simgesi
+            } else {
+                music.volume = 1; // Ses açılır
+                document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Ses açma simgesi
+            }
         }
+
+        const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
+
+        links.forEach(link => {
+            link.addEventListener('mouseover', () => {
+                // Fare bir logonun üzerine geldiğinde
+                links.forEach(otherLink => {
+                    if (otherLink !== link) {
+                        otherLink.classList.add('blurred'); // Diğer logoları bulanıklaştır
+                    }
+                });
+            });
+
+            link.addEventListener('mouseleave', () => {
+                // Fare logonun dışına çıktığında
+                links.forEach(otherLink => {
+                    otherLink.classList.remove('blurred'); // Tüm bulanıklıkları kaldır
+                });
+            });
+        });
     </script>
+
 </body>
 </html>
