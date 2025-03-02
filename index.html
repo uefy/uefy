@@ -96,15 +96,15 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fare ile üzerine gelince gölge eklendi */
         }
 
-        /* Fare dışında kalan logolar bulanıklaşsın */
+        /* Fareli logonun dışında kalan diğer logoların bulanıklaşsın */
         .links a:hover ~ a {
-            filter: blur(4px); /* Fare dışında kalan logolar bulanıklaşsın */
+            filter: blur(4px); /* Fare ile üzerine gelindiğinde diğer logolar bulanıklaşır */
+            opacity: 0.7; /* Diğer logoların opaklığını azalt */
         }
 
-        /* Fare dışında kalan logoların boyutunu etkilenmeyecek şekilde ayarladık */
+        /* Fareli logonun dışında kalan diğer logoların boyutunu etkilenmeyecek şekilde ayarladık */
         .links a:not(:hover) {
-            opacity: 1; /* Fareyle üzerine gelmediğinde diğer logolar aynı kalır */
-            transform: scale(1); /* Boyut sabit kalır */
+            opacity: 0.7; /* Diğer logoların opaklığını azalt */
         }
     </style>
 </head>
