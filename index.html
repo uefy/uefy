@@ -189,7 +189,18 @@
             document.querySelector('.content').style.display = 'flex';
             
             // Müzik çalmaya başlar
-            document.getElementById('background-music').play();
+            var music = document.getElementById('background-music');
+            music.volume = 0; // Başlangıçta ses sıfır
+            music.play();
+
+            // Yavaşça sesi açan fonksiyon
+            var volumeIncreaseInterval = setInterval(function() {
+                if (music.volume < 1) {
+                    music.volume += 0.01; // Sesin yavaşça artması
+                } else {
+                    clearInterval(volumeIncreaseInterval); // Ses maksimuma ulaştığında işlemi durdur
+                }
+            }, 100); // Her 100 milisaniyede bir ses arttırılır
         }
 
         const links = document.querySelectorAll('.links a'); // Tüm linkleri seç
