@@ -242,7 +242,7 @@
             
             if (isMuted) {
                 // Ses açılır
-                music.volume = previousVolume;
+                music.volume = previousVolume; // Müzik önceki ses seviyesine geri döner
                 document.getElementById('mute-btn').innerHTML = '<i class="fas fa-volume-up"></i>'; // Sesi aç simgesi
                 isMuted = false;
             } else {
