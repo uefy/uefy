@@ -94,13 +94,14 @@
             box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5); /* Fare ile üzerine gelince gölge eklendi */
         }
 
-        .links a:not(:hover) {
+        /* Fare ile logonun üzerine geldiğinde diğer logoların boyutunu küçültme */
+        .links a:hover ~ a {
+            transform: scale(0.8);
             opacity: 0.6;
         }
 
-        /* Karanlık overlay efekti */
-        .links a:hover ~ .overlay {
-            opacity: 0.7;
+        .links a:not(:hover) {
+            opacity: 0.6;
         }
 
     </style>
